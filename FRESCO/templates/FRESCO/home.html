@@ -1,9 +1,11 @@
 {% extends "FRESCO/base.html" %}
-{% block middle_content %}
-    <h1>FRESCO Home</h1>
-    <a href="https://www.jupyter.fresco-hpc.org/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fj-mckerracher%2Ffresco-updates&urlpath=lab%2Ftree%2Ffresco-updates%2FFRESCO-Analytics-Notebook.ipynb"
-       target="_blank">
-        <button type="button" class="btn btn-outline-dark">Data Repository</button>
-    </a>
+{% block content %}
 
-{% endblock middle_content %}
+    <h1>Welcome to the FRESCO Data Repository</h1>
+    <p class="lead">The FRESCO project is collecting, curating, and presenting public failure data of large-scale computing systems, in a repository called FRESCO. Our initial sources are Purdue, U of Illinois at Urbana-Champaign, and U of Texas at Austin. The data sets comprise static and dynamic information about system usage and the workloads, and failure information, for both planned and unplanned outages. Use the link below to access the data.</p>
+    <p class="lead">
+        <a href="https://www.jupyter.fresco-hpc.org/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fj-mckerracher%2Ffresco-updates&urlpath=lab%2Ftree%2Ffresco-updates%2FFRESCO-Analytics-Notebook.ipynb"
+           class="btn btn-lg btn-secondary fw-bold border-white bg-white">FRESCO Data Repository</a>
+    </p>
+
+{% endblock content %}
