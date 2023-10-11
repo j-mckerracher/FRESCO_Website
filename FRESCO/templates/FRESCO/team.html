@@ -1,0 +1,269 @@
+{#{% extends "FRESCO/base.html" %}#}
+{#{% block content %}#}
+{#    {% load static %}#}
+{##}
+{#    <style>#}
+{#        .card {#}
+{#            display: flex;#}
+{#            flex-direction: column;#}
+{#        }#}
+{##}
+{#        .card-body {#}
+{#            flex-grow: 1;#}
+{#        }#}
+{##}
+{#        .card-img-top {#}
+{#            height: 200px;#}
+{#            object-fit: cover;#}
+{#        }#}
+{#    </style>#}
+{##}
+{##}
+{#    <div class="row row-cols-1 row-cols-md-3 g-4 pt-5">#}
+{#        <div class="col">#}
+{#            <div class="card text-white bg-dark">#}
+{#                <img src="{% static 'FRESCO/saurabhbagchi.jpg' %}" class="card-img-top" alt="...">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">Saurabh Bagchi</h5>#}
+{#                    <p class="card-text"></p>#}
+{#                    <ul class="list-group list-group-flush">#}
+{#                        <a href="mailto:sbagchi@purdue.edu" class="btn btn-dark">Email</a>#}
+{#                        <a href="https://bagchi.github.io/" class="btn btn-dark">Webpage</a>#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card text-white bg-dark">#}
+{#                <img src="{% static 'FRESCO/carolsong.png' %}" class="card-img-top" alt="...">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">Carol Song</h5>#}
+{#                    <p class="card-text"></p>#}
+{#                    <ul class="list-group list-group-flush">#}
+{#                        <ul class="list-group list-group-flush">#}
+{#                            <a href="mailto:cxsong@purdue.edu" class="btn btn-dark">Email</a>#}
+{#                            <a href="https://web.ics.purdue.edu/~cxsong/purdue/Welcome.html" class="btn btn-dark">Webpage</a>#}
+{#                        </ul>#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card text-white bg-dark">#}
+{#                <img src="{% static 'FRESCO/rajeshkalyanam.jpg' %}" class="card-img-top" alt="...">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">Rajesh Kalyanam</h5>#}
+{#                    <p class="card-text"></p>#}
+{#                    <ul class="list-group list-group-flush">#}
+{#                        <ul class="list-group list-group-flush">#}
+{#                            <a href="mailto:rkalyana@purdue.edu" class="btn btn-dark">Email</a>#}
+{#                            <a href="#" class="btn btn-dark">Webpage</a>#}
+{#                        </ul>#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card text-white bg-dark">#}
+{#                <img src="{% static 'FRESCO/amiyamaji.jpg' %}" class="card-img-top" alt="...">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">Amiya Maji</h5>#}
+{#                    <p class="card-text"></p>#}
+{#                    <ul class="list-group list-group-flush">#}
+{#                        <ul class="list-group list-group-flush">#}
+{#                            <a href="mailto:amaji@purdue.edu" class="btn btn-dark">Email</a>#}
+{#                            <a href="https://www.rcac.purdue.edu/about/staff/amaji" class="btn btn-dark">Webpage</a>#}
+{#                        </ul>#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card text-white bg-dark">#}
+{#                <img src="{% static 'FRESCO/williamxu.jpg' %}" class="card-img-top" alt="...">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">William (Yang) Xu</h5>#}
+{#                    <p class="card-text"></p>#}
+{#                    <ul class="list-group list-group-flush">#}
+{#                        <ul class="list-group list-group-flush">#}
+{#                            <a href="mailto:xu1720@purdue.edu" class="btn btn-dark">Email</a>#}
+{#                            <a href="#" class="btn btn-dark">Webpage</a>#}
+{#                        </ul>#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card text-white bg-dark">#}
+{#                <img src="{% static 'FRESCO/aryamaandomne.jpg' %}" class="card-img-top" alt="...">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">Aryamaan Dhomne</h5>#}
+{#                    <p class="card-text"></p>#}
+{#                    <ul class="list-group list-group-flush">#}
+{#                        <ul class="list-group list-group-flush">#}
+{#                            <a href="mailto:adhomne@purdue.edu" class="btn btn-dark">Email</a>#}
+{#                            <a href="#" class="btn btn-dark">Webpage</a>#}
+{#                        </ul>#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card text-white bg-dark">#}
+{#                <img src="{% static 'FRESCO/StephenHarrell.png' %}" class="card-img-top" alt="Joshua McKerracher">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">Stephen Harrell</h5>#}
+{#                    <p class="card-text"></p>#}
+{#                    <ul class="list-group list-group-flush">#}
+{#                        <ul class="list-group list-group-flush">#}
+{#                            <a href="sharrell@tacc.utexas.edu" class="btn btn-dark">Email</a>#}
+{#                            <a href=# class="btn btn-dark">Webpage</a>#}
+{#                        </ul>#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card text-white bg-dark">#}
+{#                <img src="{% static 'FRESCO/josh.png' %}" class="card-img-top" alt="Joshua McKerracher">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">Joshua McKerracher</h5>#}
+{#                    <p class="card-text"></p>#}
+{#                    <ul class="list-group list-group-flush">#}
+{#                        <ul class="list-group list-group-flush">#}
+{#                            <a href="jmckerra@purdue.edu" class="btn btn-dark">Email</a>#}
+{#                            <a href="https://mckerracher.github.io/portfolio_2.0/" class="btn btn-dark">Webpage</a>#}
+{#                        </ul>#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#{% endblock content %}#}
+
+{% extends "FRESCO/base.html" %}
+{% block content %}
+    {% load static %}
+
+    <style>
+        .card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-img-top {
+            height: 300px;
+            object-fit: cover;
+        }
+    </style>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 pt-5">
+        <div class="col">
+            <div class="card text-white bg-dark">
+                <img src="{% static 'FRESCO/saurabhbagchi.jpg' %}" class="card-img-top" alt="Saurabh Bagchi">
+                <div class="card-body">
+                    <h5 class="card-title">Saurabh Bagchi</h5>
+                    <ul class="list-group list-group-flush">
+                        <a href="mailto:sbagchi@purdue.edu" class="btn btn-dark">Email</a>
+                        <a href="https://bagchi.github.io/" class="btn btn-dark">Webpage</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card text-white bg-dark">
+                <img src="{% static 'FRESCO/carolsong.png' %}" class="card-img-top" alt="Carol Song">
+                <div class="card-body">
+                    <h5 class="card-title">Carol Song</h5>
+                    <ul class="list-group list-group-flush">
+                        <a href="mailto:cxsong@purdue.edu" class="btn btn-dark">Email</a>
+                        <a href="https://web.ics.purdue.edu/~cxsong/purdue/Welcome.html" class="btn btn-dark">Webpage</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Additional team members... -->
+        <div class="col">
+            <div class="card text-white bg-dark">
+                <img src="{% static 'FRESCO/rajeshkalyanam.jpg' %}" class="card-img-top" alt="Rajesh Kalyanam">
+                <div class="card-body">
+                    <h5 class="card-title">Rajesh Kalyanam</h5>
+                    <ul class="list-group list-group-flush">
+                        <a href="mailto:rkalyana@purdue.edu" class="btn btn-dark">Email</a>
+                        <a href="#" class="btn btn-dark">Webpage</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card text-white bg-dark">
+                <img src="{% static 'FRESCO/amiyamaji.jpg' %}" class="card-img-top" alt="Amiya Maji">
+                <div class="card-body">
+                    <h5 class="card-title">Amiya Maji</h5>
+                    <ul class="list-group list-group-flush">
+                        <a href="mailto:amaji@purdue.edu" class="btn btn-dark">Email</a>
+                        <a href="https://www.rcac.purdue.edu/about/staff/amaji" class="btn btn-dark">Webpage</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card text-white bg-dark">
+                <img src="{% static 'FRESCO/williamxu.jpg' %}" class="card-img-top" alt="William (Yang) Xu">
+                <div class="card-body">
+                    <h5 class="card-title">William (Yang) Xu</h5>
+                    <ul class="list-group list-group-flush">
+                        <a href="mailto:xu1720@purdue.edu" class="btn btn-dark">Email</a>
+                        <a href="#" class="btn btn-dark">Webpage</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card text-white bg-dark">
+                <img src="{% static 'FRESCO/aryamaandomne.jpg' %}" class="card-img-top" alt="Aryamaan Dhomne">
+                <div class="card-body">
+                    <h5 class="card-title">Aryamaan Dhomne</h5>
+                    <ul class="list-group list-group-flush">
+                        <a href="mailto:adhomne@purdue.edu" class="btn btn-dark">Email</a>
+                        <a href="https://github.com/arya1106" class="btn btn-dark">Webpage</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card text-white bg-dark">
+                <img src="{% static 'FRESCO/StephenHarrell.png' %}" class="card-img-top" alt="Joshua McKerracher">
+                <div class="card-body">
+                    <h5 class="card-title">Stephen Harrell</h5>
+                    <p class="card-text"></p>
+                    <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush">
+                            <a href="sharrell@tacc.utexas.edu" class="btn btn-dark">Email</a>
+                            <a href="https://tacc.utexas.edu/about/staff-directory/stephen-lien-harrell/" class="btn btn-dark">Webpage</a>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card text-white bg-dark">
+                <img src="{% static 'FRESCO/josh.png' %}" class="card-img-top" alt="Joshua McKerracher">
+                <div class="card-body">
+                    <h5 class="card-title">Joshua McKerracher</h5>
+                    <ul class="list-group list-group-flush">
+                        <a href="mailto:jmckerra@purdue.edu" class="btn btn-dark">Email</a>
+                        <a href="https://mckerracher.github.io/portfolio_2.0/" class="btn btn-dark">Webpage</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

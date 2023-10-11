@@ -5,8 +5,15 @@
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.84.0">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'FRESCO/favicon_io/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'FRESCO/favicon_io/favicon-32x32.png'%}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'FRESCO/favicon_io/favicon-16x16.png'%}">
+    <link rel="manifest" href="{% static 'FRESCO/favicon_io/site.webmanifest'%}">
 
     <!-- Title -->
     {% if title %}
@@ -37,15 +44,20 @@
                 font-size: 3.5rem;
             }
         }
+
+
     </style>
 
 
     <!-- Custom styles for this template -->
     <link type="text/css" href="{% static 'FRESCO/base.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
 
 </head>
 
-<body class="d-flex h-100 text-center text-white">
+<body class="d-flex text-center h-100">
 
 {#    MAIN BODY    #}
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -56,14 +68,15 @@
                      height="24"
                      class="d-inline-block align-text-top" style="padding-right: 20px;">
             </a>
-            <h3 class="float-md-start mb-0">FRESCO</h3>
             <nav class="nav nav-masthead justify-content-center float-md-end">
                 <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-Home' %}active{% endif %}"
                    aria-current="page" href="{% url 'FRESCO-Data-Repo-Home' %}">Home</a>
                 <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-About' %}active{% endif %}"
                    href="{% url 'FRESCO-Data-Repo-About' %}">About</a>
-                <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-Contact' %}active{% endif %}"
-                   href="https://engineering.purdue.edu/dcsl/team-members/" target="_blank" rel="noopener noreferrer">Contact</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-Team' %}active{% endif %}"
+                   href="{% url 'FRESCO-Data-Repo-Team' %}">Team</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-News' %}active{% endif %}"
+                   href="{% url 'FRESCO-Data-Repo-News' %}">News</a>
             </nav>
 
         </div>
@@ -73,8 +86,9 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="mt-auto text-white-50">
-        <p>Copyright © 2023 <a href="https://engineering.purdue.edu/dcsl/">Dependable Computing Systems Laboratory</a> at <a href="www.purdue.edu">Purdue University</a>
+    <footer class="mt-auto text-white-50 pt-5">
+        <p>Copyright © 2023 <a href="https://engineering.purdue.edu/dcsl/">Dependable Computing Systems Laboratory</a>
+            at <a href="www.purdue.edu">Purdue University</a>
         </p>
     </footer>
 </div>

@@ -31,6 +31,14 @@ body {
     max-width: 42em;
 }
 
+h1, h4, h5 {
+    color: #ffd333;
+}
+
+p, li {
+    color: white;
+}
+
 
 /*
  * Header
@@ -54,5 +62,6 @@ body {
 
 .nav-masthead .active {
   color: #fff;
-  border-bottom-color: #fff;
+  border-bottom-color: #ffd333;
 }
+
