@@ -2,13 +2,26 @@
 {% block content %}
     {% load static %}
 
-    <img src="{% static 'FRESCO/Conte.jpg' %}" class="img-fluid" alt="Responsive image">
+    <div class="flex-container">
+        <img src="/static/FRESCO/landing.png" class="img-fluid" alt="Responsive image">
 
-    <h1>FRESCO Data Repository</h1>
-    <p class="lead pb-2">The FRESCO project is collecting, curating, and presenting public failure data of large-scale computing systems, in a repository called FRESCO. Our initial sources are Purdue, U of Illinois at Urbana-Champaign, and U of Texas at Austin. The data sets comprise static and dynamic information about system usage and the workloads, and failure information, for both planned and unplanned outages. Use the link below to access the data.</p>
-    <p class="lead">
-        <a href="https://www.jupyter.fresco-hpc.org/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fj-mckerracher%2Ffresco-updates&urlpath=lab%2Ftree%2Ffresco-updates%2F&branch=master"
-           class="btn btn-lg btn-secondary fw-bold border-white bg-white">FRESCO Data Repository</a>
-    </p>
+
+    </div>
+
+
+    {#    <div class="overlay-container">#}
+    {#        <img src="/static/FRESCO/lunareclipse.jpg" class="img-fluid" alt="Responsive image">#}
+    {#        <h1 class="overlay-text">FRESCO Data Repository</h1>#}
+    {#    </div>#}
+
+        <p class="lead pb-2">The FRESCO project is collecting, curating, and presenting public failure data of large-scale
+            computing systems, in a repository called FRESCO. Our initial sources are Purdue, U of Illinois at
+            Urbana-Champaign, and U of Texas at Austin. The data sets comprise static and dynamic information about system
+            usage and the workloads, and failure information, for both planned and unplanned outages. Use the link below to
+            access the data.</p>
+        <p class="lead">
+            <a href="https://www.jupyter.fresco-hpc.org/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fj-mckerracher%2Ffresco-updates&urlpath=lab%2Ftree%2Ffresco-updates%2F&branch=master"
+               class="btn btn-lg btn-secondary fw-bold border-white bg-white">FRESCO Data Repository</a>
+        </p>
 
 {% endblock content %}

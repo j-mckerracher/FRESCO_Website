@@ -65,3 +65,26 @@ p, li {
   border-bottom-color: #ffd333;
 }
 
+
+.overlay-container {
+    position: relative;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 38%;  /* Center the text vertically */
+    left: 55%;  /* Center the text horizontally */
+    transform: translate(-50%, -50%);  /* Adjust the text to be truly centered */
+    z-index: 1;  /* Ensure the text is above the image */
+    color: white;  /* Make the text color white (or any other color that contrasts with your image) */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  /* Optional: Add a shadow for better readability */
+}
+
+.flex-container {
+    display: flex;  /* Enable Flexbox */
+}
+
+.img-fluid {
+    width: 50%;  /* Adjust the width as per your design */
+    object-fit: cover;  /* Ensure the image maintains its aspect ratio */
+}
