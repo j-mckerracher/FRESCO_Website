@@ -1,14 +1,59 @@
 {% extends "FRESCO/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link type="text/css" href="{% static 'FRESCO/css/home.css' %}" rel="stylesheet">
+{% endblock extra_css %}
+
 {% block content %}
-    {% load static %}
 
-    <img src="{% static 'FRESCO/Conte.jpg' %}" class="img-fluid" alt="Responsive image">
 
-    <h1>FRESCO Data Repository</h1>
-    <p class="lead pb-2">The FRESCO project is collecting, curating, and presenting public failure data of large-scale computing systems, in a repository called FRESCO. Our initial sources are Purdue, U of Illinois at Urbana-Champaign, and U of Texas at Austin. The data sets comprise static and dynamic information about system usage and the workloads, and failure information, for both planned and unplanned outages. Use the link below to access the data.</p>
-    <p class="lead">
-        <a href="https://www.jupyter.fresco-hpc.org/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fj-mckerracher%2Ffresco-updates&urlpath=lab%2Ftree%2Ffresco-updates%2F&branch=master"
-           class="btn btn-lg btn-secondary fw-bold border-white bg-white">FRESCO Data Repository</a>
-    </p>
+
+    <div class="flex-container">
+        <img src="/static/FRESCO/images/landing.png" class="img-fluid" alt="Responsive image" id="eclipse">
+    </div>
+
+    <div class="line-container">
+        <div class="line-divider"></div>
+    </div>
+
+
+    <div class="container py-4">
+        <div class="row">
+            <!-- Column for the image  pr-lg-0 pr-md-0 -->
+            <div class="col-lg-4 col-md-4 img-container">
+                <img src="/static/FRESCO/images/anvil.png" class="img-fluid" alt="Responsive image" id="anvil">
+            </div>
+
+            <!-- Column for the text pl-lg-2 pl-md-2 -->
+            <div class="col-lg-8 col-md-8  pl-lg-2 pl-md-2">
+                <p class="lead pb-2">The FRESCO project is engaged in the systematic collection, curation, and
+                    presentation of public failure data pertinent to large-scale computing systems, all of which is
+                    consolidated in a repository named FRESCO. Originating from Purdue, U of Illinois at
+                    Urbana-Champaign, and U of Texas at Austin, the datasets encapsulate both static and dynamic
+                    information, encompassing system usage, workloads, and failure data, applicable to both planned and
+                    unplanned outages. Navigate through the subsequent link to delve into the data.</p>
+                <p class="lead pb-2">In a broader context, the FRESCO project seeks to illuminate the intricacies of
+                    system failures and usage patterns within large-scale computing environments, thereby providing a
+                    rich data repository that stands to benefit researchers, technologists, and data scientists in
+                    navigating the complexities and challenges inherent in managing and maintaining robust computing
+                    infrastructures. This endeavor not only facilitates a deeper understanding of system failures but
+                    also propels further research and development in the realm of dependable computing systems.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="line-container">
+        <div class="line-divider"></div>
+    </div>
+
+
+    <div class="flex-container" id="notebook-link">
+        <p class="lead">
+            <a href="https://www.jupyter.fresco-hpc.org/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fj-mckerracher%2Ffresco-updates&urlpath=lab%2Ftree%2Ffresco-updates%2F&branch=master"
+               class="btn btn-lg btn-secondary fw-bold border-white bg-white">FRESCO Data Repository</a>
+        </p>
+    </div>
+
 
 {% endblock content %}
