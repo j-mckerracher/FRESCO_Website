@@ -1,0 +1,36 @@
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-img-top {
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+#card-container {
+    width: 60%;
+}
+
+.card-img-top {
+    height: 200px;  /* or whatever height you prefer */
+    width: 100%;    /* to ensure it takes the full width of the card */
+    object-fit: cover;
+}
+
+@media (max-width: 600px) {
+    .card-footer {
+        font-size: 12px;
+    }
+}
+
+
+
+.card-footer {
+    font-size: 2vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
