@@ -47,6 +47,10 @@ p, li {
 }
 
 .nav-item a:hover {
-    border-bottom: 2px solid #ffd333;
+    box-shadow: 0 2px 0 0 #ffd333; /* This creates a 2px underline effect for the text */
     text-decoration: none; /* Removes the default underline of the anchor tag on hover */
+}
+
+.nav-item a {
+    display: inline-block;
 }
