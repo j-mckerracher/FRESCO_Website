@@ -2,7 +2,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,21 +10,19 @@
     <meta name="generator" content="Hugo 0.84.0">
 
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'FRESCO/favicon_io/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'FRESCO/favicon_io/favicon-32x32.png'%}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'FRESCO/favicon_io/favicon-16x16.png'%}">
-    <link rel="manifest" href="{% static 'FRESCO/favicon_io/site.webmanifest'%}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'FRESCO/favicon_io/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'FRESCO/favicon_io/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'FRESCO/favicon_io/site.webmanifest' %}">
 
     <!-- Title -->
     {% if title %}
-        <title>FRESCO Data Repository - {{ title }}</title>
+        <title>FRESCO - {{ title }}</title>
     {% else %}
-        <title>FRESCO Data Repository</title>
+        <title>FRESCO</title>
     {% endif %}
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
-
-
     <!-- Bootstrap core CSS -->
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -44,53 +41,64 @@
                 font-size: 3.5rem;
             }
         }
-
-
     </style>
 
 
     <!-- Custom styles for this template -->
-    <link type="text/css" href="{% static 'FRESCO/base.css' %}" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+    <link type="text/css" href="{% static 'FRESCO/css/base.css' %}" rel="stylesheet">
 
+    <!-- block for page specific CSS files -->
+    {% block extra_css %}{% endblock extra_css %}
 </head>
 
-<body class="d-flex text-center h-100">
 
-{#    MAIN BODY    #}
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="mb-auto">
-        <div>
-            <a class="float-md-start mb-0" href="https://www.purdue.edu" target="_blank" rel="noopener noreferrer">
-                <img src="{% static 'FRESCO/purdue_logo.png' %}" alt="Purdue College of Engineering" width="200"
-                     height="24"
-                     class="d-inline-block align-text-top" style="padding-right: 20px;">
-            </a>
-            <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-Home' %}active{% endif %}"
-                   aria-current="page" href="{% url 'FRESCO-Data-Repo-Home' %}">Home</a>
-                <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-About' %}active{% endif %}"
-                   href="{% url 'FRESCO-Data-Repo-About' %}">About</a>
-                <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-Team' %}active{% endif %}"
-                   href="{% url 'FRESCO-Data-Repo-Team' %}">Team</a>
-                <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-News' %}active{% endif %}"
-                   href="{% url 'FRESCO-Data-Repo-News' %}">News</a>
-            </nav>
+<body>
+<!----------------------------------- navbar --------------------------------------------------->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-Home' %}active{% endif %}"
+                       aria-current="page" href="{% url 'FRESCO-Data-Repo-Home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-About' %}active{% endif %}"
+                       href="{% url 'FRESCO-Data-Repo-About' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-Team' %}active{% endif %}"
+                       href="{% url 'FRESCO-Data-Repo-Team' %}">Team</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-News' %}active{% endif %}"
+                       href="{% url 'FRESCO-Data-Repo-News' %}">News</a>
+                </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
+
+<!----------------------------------- main body --------------------------------------------------->
+<main class="px-3">
+    {% block content %}{% endblock %}
+</main>
+
+<!----------------------------------- footer --------------------------------------------------->
+<footer class="mt-auto text-white-50 pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 text-center">
+                <p>FRESCO is supported by the National Science Foundation, CISE Community Research Infrastructure (CCRI) program, "Open Computer System Usage Repository and Analytics Engine". Project numbers CNS-2016704 and CNS-2016608.</p>
+            </div>
         </div>
-    </header>
+    </div>
+</footer>
 
-    <main class="px-3">
-        {% block content %}{% endblock %}
-    </main>
-
-    <footer class="mt-auto text-white-50 pt-5">
-        <p>Copyright © 2023 <a href="https://engineering.purdue.edu/dcsl/">Dependable Computing Systems Laboratory</a>
-            at <a href="www.purdue.edu">Purdue University</a>
-        </p>
-    </footer>
 </div>
 
 
