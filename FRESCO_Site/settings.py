@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', 'frescodata.xyz']
 
@@ -84,15 +84,13 @@ DATABASES = {
 
 # Assuming BASE_DIR is the root directory of your project
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static_files'),  # Common static files
+    os.path.join(BASE_DIR, 'FRESCO', 'static'),
 ]
 
 # Directory where collectstatic will place all collected static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 STATIC_URL = '/static/'
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
