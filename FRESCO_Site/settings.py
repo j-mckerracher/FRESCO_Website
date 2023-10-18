@@ -82,11 +82,10 @@ DATABASES = {
     }
 }
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'FRESCO/static'),
-]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+APPS_DIR = 'FRESCO'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(APPS_DIR, "static/")
+STATICFILES_DIRS = [os.path.join(APPS_DIR, 'static_files')]
 
 
 # Password validation
