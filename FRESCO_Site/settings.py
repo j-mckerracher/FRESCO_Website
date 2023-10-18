@@ -83,7 +83,7 @@ DATABASES = {
 }
 
 APPS_DIR = 'FRESCO'
-STATIC_URL = '/static/'
+STATIC_URL = 'FRESCO/static/'
 STATIC_ROOT = os.path.join(APPS_DIR, "static/")
 STATICFILES_DIRS = [os.path.join(APPS_DIR, 'static_files')]
 
