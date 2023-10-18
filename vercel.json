@@ -1,14 +1,19 @@
 {
-    "builds": [
-      {
-        "src": "FRESCO_Site/wsgi.py",
-        "use": "@vercel/python",
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "FRESCO_Site/wsgi.py"
-      }
-    ]
+  "version": 2,
+  "builds": [
+    {
+      "src": "FRESCO_Site/asgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/collected_static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/FRESCO_Site/asgi.py"
+    }
+  ]
 }
