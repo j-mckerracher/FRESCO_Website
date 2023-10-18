@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "FRESCO_Site/asgi.py",
+      "src": "FRESCO_Site/wsgi.py",
       "use": "@vercel/python"
     }
   ],
@@ -13,7 +13,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/FRESCO_Site/asgi.py"
+      "dest": "/FRESCO_Site/wsgi.py"
     }
   ]
 }
