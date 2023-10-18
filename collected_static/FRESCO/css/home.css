@@ -1,0 +1,72 @@
+/* General Styles */
+#eclipse {
+    width: 100%;  /* Full width on small screens */
+    height: auto;  /* Maintain aspect ratio */
+    object-fit: cover;
+}
+
+.line-container {
+    text-align: center;
+    width: 100%;
+}
+
+.line-divider {
+    border: 0;
+    height: 2px;
+    background-color: #ffd333;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.img-container img {
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --------- Landing Page Image Sizes ------------- */
+/* Medium screens (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    #eclipse {
+        width: 75%;  /* Adjust width */
+        height: auto;
+    }
+}
+
+/* Large screens (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    #eclipse {
+        width: 50%;  /* Adjust width */
+        height: auto;
+    }
+}
+
+/* Extra large screens (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    #eclipse {
+        width: 50%;  /* Adjust width */
+        height: auto;
+    }
+}
+
+/* Button Adjustment */
+#notebook-link {
+    margin-top: -150px;
+}
+
+/* Image Styling */
+#anvil {
+    border-radius: 10px;
+}
+
+/* Flexbox Adjustments */
+.flex-row-equal-height {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

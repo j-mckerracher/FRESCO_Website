@@ -82,10 +82,16 @@ DATABASES = {
     }
 }
 
-APPS_DIR = 'FRESCO'
-STATIC_URL = 'FRESCO/static/'
-STATIC_ROOT = os.path.join(APPS_DIR, "static/")
-STATICFILES_DIRS = [os.path.join(APPS_DIR, 'static_files')]
+# Assuming BASE_DIR is the root directory of your project
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_files'),  # Common static files
+]
+
+# Directory where collectstatic will place all collected static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
+
+STATIC_URL = '/static/'
+
 
 
 # Password validation
@@ -122,7 +128,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
