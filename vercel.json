@@ -4,6 +4,13 @@
     {
       "src": "FRESCO_Site/wsgi.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "run_collect_static.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "collected_static"
+      }
     }
   ],
   "routes": [
