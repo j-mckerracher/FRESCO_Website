@@ -1,0 +1,71 @@
+/*.card {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+/*.card-img-top {*/
+/*    height: auto;*/
+/*    max-height: 300px;*/
+/*    object-fit: cover;*/
+/*}*/
+
+/*#card-container {*/
+/*    width: 60%;*/
+/*}*/
+
+/*.card-img-top {*/
+/*    height: 200px;  !* or whatever height you prefer *!*/
+/*    width: 100%;    !* to ensure it takes the full width of the card *!*/
+/*    object-fit: cover;*/
+/*}*/
+
+/*@media (max-width: 600px) {*/
+/*    .card-footer {*/
+/*        font-size: 12px;*/
+/*    }*/
+/*}*/
+
+
+
+/*.card-footer {*/
+/*    font-size: 2vw;*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+
+
+/*CSS Grid*/
+#card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+}
+
+.card-img-top {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;  /* Ensure the image is treated as a block-level element */
+}
+
+
+
+
+
+
+/*masonry.js*/
+/*.card {*/
+/*    width: calc(25% - 20px); !* or another preferred width *!*/
+/*}*/
