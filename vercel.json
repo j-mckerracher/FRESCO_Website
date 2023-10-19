@@ -1,8 +1,5 @@
 {
   "version": 2,
-  "engines": {
-    "python": "3.x"
-  },
   "builds": [
     {
       "src": "FRESCO_Site/wsgi.py",
