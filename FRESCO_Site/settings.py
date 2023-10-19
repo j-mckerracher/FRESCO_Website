@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv('key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', 'frescodata.xyz']
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', 'frescodata.xyz', '.now.sh']
 
 
 # Application definition
@@ -79,19 +79,14 @@ WSGI_APPLICATION = 'FRESCO_Site.wsgi.app'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
 
-# Assuming BASE_DIR is the root directory of your project
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'FRESCO', 'static'),
-]
-
-# Directory where collectstatic will place all collected static files
-STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 STATIC_URL = '/static/'
 
