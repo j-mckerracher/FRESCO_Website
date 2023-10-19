@@ -12,6 +12,16 @@ media
 # Virtual Environment
 venv/
 myvenv/
+# Virtual environment
+venv/
+.env/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
 
 # IDE-specific
 .vscode/
