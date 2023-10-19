@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "Using Python version:"
-$VENV/bin/python --version
-$VENV/bin/python manage.py collectstatic --noinput
+python3 --version
+python3 manage.py collectstatic --noinput
