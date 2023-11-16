@@ -21,3 +21,8 @@ def team(request):
 def news(request):
     template = f'{template_dir}news.html'
     return render(request, template)
+
+
+def repository(request):
+    template = f'{template_dir}repository.html'
+    return render(request, template)

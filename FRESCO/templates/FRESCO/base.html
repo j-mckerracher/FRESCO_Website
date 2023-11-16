@@ -73,6 +73,10 @@
                     <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-News' %}active{% endif %}"
                        href="{% url 'FRESCO-Data-Repo-News' %}">News</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-Repository' %}active{% endif %}"
+                       href="{% url 'FRESCO-Data-Repo-Repository' %}">Data Repository</a>
+                </li>
       </ul>
     </div>
   </div>

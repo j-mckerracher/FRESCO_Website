@@ -1,0 +1,231 @@
+{% extends "FRESCO/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+    <link type="text/css" href="{% static 'FRESCO/css/repository.css' %}" rel="stylesheet">
+{% endblock extra_css %}
+
+{% block content %}
+    <h1>FRESCO Data Repository</h1>
+
+    <h2>Database Overview</h2>
+    <p>
+        This overview provides detailed information about the two FRESCO database tables: <code>host_data</code> and
+        <code>job_data</code>. These tables are essential for understanding the resource usage and job execution
+        details. The <code>host_data</code> table captures metrics about resource usage at specific timestamps, while
+        the <code>job_data</code> table records comprehensive details about job executions.
+    </p>
+
+    <div class="line-container">
+        <div class="line-divider"></div>
+    </div>
+
+    <h2>Table <code>host_data</code></h2>
+    <p>The <code>host_data</code> table records metrics related to resource usage by various hosts (nodes).</p>
+
+    <h3>Schema</h3>
+    <table>
+        <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Nullable</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>time</td>
+            <td>timestamp with time zone</td>
+            <td>No</td>
+            <td>Timestamp for the recorded data point</td>
+        </tr>
+        <tr>
+            <td>host</td>
+            <td>character varying(64)</td>
+            <td>No</td>
+            <td>The origin node where the data point was gathered</td>
+        </tr>
+        <tr>
+            <td>jid</td>
+            <td>character varying(32)</td>
+            <td>No</td>
+            <td>Unique identifier for the job</td>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td>character varying(32)</td>
+            <td>Yes</td>
+            <td>Type of the metric</td>
+        </tr>
+        <tr>
+            <td>event</td>
+            <td>character varying(64)</td>
+            <td>No</td>
+            <td>Type of resource usage metric</td>
+        </tr>
+        <tr>
+            <td>unit</td>
+            <td>character varying(16)</td>
+            <td>No</td>
+            <td>Unit of measurement for the metric</td>
+        </tr>
+        <tr>
+            <td>value</td>
+            <td>real</td>
+            <td>No</td>
+            <td>Numeric value of the metric</td>
+        </tr>
+        <tr>
+            <td>diff</td>
+            <td>real</td>
+            <td>Yes</td>
+            <td>Difference from the previous value</td>
+        </tr>
+        <tr>
+            <td>arc</td>
+            <td>real</td>
+            <td>Yes</td>
+            <td>Arc measurement</td>
+        </tr>
+    </table>
+
+    <h3>Event Column Metrics</h3>
+
+    <p><code>cpuuser</code>: CPU user mode average percentage</p>
+    <p><code>block</code>: Data transfer rate to/from block devices</p>
+    <p><code>memused</code>: Total physical memory usage by the OS</p>
+    <p><code>memused_minus_diskcache</code>: Physical memory usage excluding caches</p>
+    <p><code>gpu_usage</code>: GPU active time average percentage (only for GPU jobs)</p>
+    <p><code>nfs</code>: Data transfer rate over NFS mounts</p>
+
+        <div class="line-container">
+        <div class="line-divider"></div>
+    </div>
+
+    <h2>Table <code>job_data</code></h2>
+    <p>The <code>job_data</code> table contains details about the execution of jobs, including timing, resource
+        allocation, and job status.</p>
+
+    <h3>Schema</h3>
+    <table>
+        <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Nullable</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>jid</td>
+            <td>character varying(32)</td>
+            <td>No</td>
+            <td>Unique identifier for the job</td>
+        </tr>
+        <tr>
+            <td>submit_time</td>
+            <td>timestamp with time zone</td>
+            <td>No</td>
+            <td>Time when the job was submitted</td>
+        </tr>
+        <tr>
+            <td>start_time</td>
+            <td>timestamp with time zone</td>
+            <td>No</td>
+            <td>Time when the job execution started</td>
+        </tr>
+        <tr>
+            <td>end_time</td>
+            <td>timestamp with time zone</td>
+            <td>No</td>
+            <td>Time when the job execution ended</td>
+        </tr>
+        <tr>
+            <td>runtime</td>
+            <td>real</td>
+            <td>Yes</td>
+            <td>Actual runtime of the job</td>
+        </tr>
+        <tr>
+            <td>timelimit</td>
+            <td>real</td>
+            <td>Yes</td>
+            <td>Requested duration for the job (in seconds)</td>
+        </tr>
+        <tr>
+            <td>node_hrs</td>
+            <td>real</td>
+            <td>Yes</td>
+            <td>Total node hours consumed by the job</td>
+        </tr>
+        <tr>
+            <td>nhosts</td>
+            <td>integer</td>
+            <td>No</td>
+            <td>Number of nodes assigned to the job</td>
+        </tr>
+        <tr>
+            <td>ncores</td>
+            <td>integer</td>
+            <td>No</td>
+            <td>Total cores assigned to the job</td>
+        </tr>
+        <tr>
+            <td>ngpus</td>
+            <td>integer</td>
+            <td>No</td>
+            <td>Total GPUs assigned to the job</td>
+        </tr>
+        <tr>
+            <td>username</td>
+            <td>character varying(64)</td>
+            <td>No</td>
+            <td>Name of the job owner</td>
+        </tr>
+        <tr>
+            <td>account</td>
+            <td>character varying(64)</td>
+            <td>Yes</td>
+            <td>Account or project name</td>
+        </tr>
+        <tr>
+            <td>queue</td>
+            <td>character varying(64)</td>
+            <td>Yes</td>
+            <td>Name of the job submission queue</td>
+        </tr>
+        <tr>
+            <td>state</td>
+            <td>character varying(64)</td>
+            <td>Yes</td>
+            <td>Current state of the job</td>
+        </tr>
+        <tr>
+            <td>jobname</td>
+            <td>text</td>
+            <td>Yes</td>
+            <td>Name of the job</td>
+        </tr>
+        <tr>
+            <td>exitcode</td>
+            <td>text</td>
+            <td>Yes</td>
+            <td>Exit status of the job</td>
+        </tr>
+        <tr>
+            <td>host_list</td>
+            <td>text[]</td>
+            <td>Yes</td>
+            <td>List of nodes where the job ran</td>
+        </tr>
+    </table>
+
+        <div class="line-container">
+        <div class="line-divider"></div>
+    </div>
+
+    <h3>Usage</h3>
+    <p>
+        These tables are accessible through the Analytics Toolbench. A link to toolbench can be found on the homepage.
+    </p>
+
+    </html>
+
+{% endblock content %}
