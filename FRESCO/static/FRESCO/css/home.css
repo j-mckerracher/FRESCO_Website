@@ -48,9 +48,16 @@
     }
 }
 
-/* Button Adjustment */
-#notebook-link {
-    margin-top: -150px;
+#call-to-action {
+    max-height: 80vh;
+    gap: 5%;
+}
+
+#button-stack {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 25%;
 }
 
 /* Image Styling */
