@@ -53,6 +53,17 @@
     gap: 5%;
 }
 
+@media only screen and (max-width: 430px) {
+    #call-to-action {
+        flex-direction: column;
+        max-height: 80vh;
+        gap: 5%;
+    }
+    #youtube-video {
+        width: 100%;
+    }
+}
+
 #button-stack {
     flex-direction: column;
     justify-content: space-between;
