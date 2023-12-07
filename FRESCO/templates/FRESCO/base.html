@@ -51,15 +51,20 @@
 <body>
 <!----------------------------------- navbar --------------------------------------------------->
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-Home' %}active{% endif %}"
                        aria-current="page" href="{% url 'FRESCO-Data-Repo-Home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-Simple-Search' %}active{% endif %}"
+                       href="{% url 'FRESCO-Data-Repo-Simple-Search' %}">Repository Simple Search</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-About' %}active{% endif %}"
@@ -73,13 +78,9 @@
                     <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-News' %}active{% endif %}"
                        href="{% url 'FRESCO-Data-Repo-News' %}">News</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.url_name == 'FRESCO-Data-Repo-Repository' %}active{% endif %}"
-                       href="{% url 'FRESCO-Data-Repo-Repository' %}">Data Repository</a>
-                </li>
-      </ul>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 
 
@@ -93,7 +94,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 text-center">
-                <p>FRESCO is supported by the National Science Foundation, CISE Community Research Infrastructure (CCRI) program, "Open Computer System Usage Repository and Analytics Engine". Project numbers CNS-2016704 and CNS-2016608.</p>
+                <p>FRESCO is supported by the National Science Foundation, CISE Community Research Infrastructure (CCRI)
+                    program, "Open Computer System Usage Repository and Analytics Engine". Project numbers CNS-2016704
+                    and CNS-2016608.</p>
             </div>
         </div>
     </div>

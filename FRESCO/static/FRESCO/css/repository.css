@@ -13,18 +13,53 @@ p, ul, li {
     text-align: center;
 }
 
+label {
+    color: white;
+}
+
+.form-control {
+    max-width: 100vw;  /* Increase the viewport width percentage */
+    width: 100%;      /* This will make the input field take the full width of its parent */
+    text-align: center;
+}
+
+.form-group {
+    margin-right: auto;
+    margin-left: auto;
+    width: fit-content; /* Or specify a width */
+}
+
+button {
+    display: block;  /* Make the button a block element */
+    margin: 20px auto; /* Add margin auto to center the button, 20px for some space above the button */
+}
+
+
+.error-message {
+    color: red;
+    text-align: center;
+}
+
+.search-instructions {
+    text-align: center;
+}
+
+
 table {
     margin-left: auto;
     margin-right: auto;
     color: white;
     padding-bottom: 20px;
+    border-collapse: collapse; /* Add this line */
     /* Optional: Set a specific width if needed */
     /* width: 80%; */
+    border: 1px solid white; /* Optional: Add if you want a border around the entire table */
 }
 
 th, td {
     text-align: center;
     color: white;
+    border: 1px solid white; /* Add this line */
 }
 
 .line-container {
@@ -40,4 +75,21 @@ th, td {
     background-color: #ffd333;
     width: 75%;
     margin: 0 auto;
+}
+
+@media (max-width: 600px) { /* Adjust the breakpoint as needed */
+    .container .row .col {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .form-container {
+        flex-direction: column; /* This line may not be necessary if 'form-container' is not used */
+    }
+
+    .form-control {
+        max-width: 80vw; /* Adjust the width for smaller screens */
+    }
+
+    /* Adjust other styles as needed for smaller screens */
 }

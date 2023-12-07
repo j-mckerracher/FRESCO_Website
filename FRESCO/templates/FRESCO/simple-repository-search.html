@@ -1,6 +1,7 @@
 {% extends "FRESCO/base.html" %}
 
 {% load static %}
+{% load custom_filters %}
 
 {% block extra_css %}
     <link type="text/css" href="{% static 'FRESCO/css/repository.css' %}" rel="stylesheet">
@@ -8,6 +9,133 @@
 
 {% block content %}
     <h1>FRESCO Data Repository</h1>
+
+
+    <h2>Simple Database Search</h2>
+
+
+
+    <div class="container">
+        <div class="row justify-content-around">
+            <div class="col">
+                <!-- Host Data Search Form -->
+                <p class="search-instructions"><b>Search Host Data using the following instructions</b></p>
+                <table>
+                    <tr>
+                        <th>Job ID</th>
+                        <td>Use the format 'JOB' followed by digits (e.g., 'JOB123').</td>
+                    </tr>
+                    <tr>
+                        <th>Host ID</th>
+                        <td>Use the format 'NODE' followed by digits (e.g., 'NODE123').</td>
+                    </tr>
+                </table>
+                <form method="post" action="{% url 'FRESCO-Data-Repo-Simple-Search' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="host_data">
+                    <div class="form-group pt-4">
+                        <label for="host_data_search_input">Host Data Table Search</label>
+                        <input type="text" class="form-control" name="input_field" id="host_data_search_input"
+                               placeholder="JOB959861, NODE229, etc.">
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+
+            <div class="col">
+                <!-- Job Data Search Form -->
+                <p class="search-instructions"><b>Search Job Data using the following instructions</b></p>
+
+                <table>
+                    <tr>
+                        <th>Account</th>
+                        <td>Enter one account identifier (e.g., 'GROUP87').</td>
+                    </tr>
+                    <tr>
+                        <th>Job ID</th>
+                        <td>Use the format 'JOB' followed by digits (e.g., 'JOB123').</td>
+                    </tr>
+                    <tr>
+                        <th>User</th>
+                        <td>Enter the user identifier (e.g., 'USER456').</td>
+                    </tr>
+                    <tr>
+                        <th>Exit Code</th>
+                        <td>Enter one of the following exit codes: CANCELLED, COMPLETED, FAILED, NODE_FAIL, or TIMEOUT
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Job Name</th>
+                        <td>Use the format 'JOBNAME' followed by digits (e.g., 'JOBNAME123').</td>
+                    </tr>
+                    <tr>
+                        <th>Host ID</th>
+                        <td>Use the format 'NODE' followed by digits (e.g., 'NODE123').</td>
+                    </tr>
+                </table>
+
+
+                <form method="post" action="{% url 'FRESCO-Data-Repo-Simple-Search' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="job_data">
+                    <div class="form-group pt-4">
+                        <label for="job_data_search_input">Job Data Table Search</label>
+                        <input type="text" class="form-control" name="input_field" id="job_data_search_input"
+                               placeholder="account, job, user, exitcode, jobname, host_list">
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    {% if error_message %}
+        <p class="error-message">{{ error_message|safe }}</p>
+    {% endif %}
+
+    {% if data %}
+        <h3>Search Results for "{{ user_input }}"</h3>
+        <p class="pb-3">
+            {% if truncated %}
+                <b>The displayed results are limited to 300 rows. To access the full dataset, please utilize the</b>
+                <a href="https://www.jupyter.fresco-hpc.org/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fj-mckerracher%2Ffresco-updates&urlpath=lab%2Ftree%2Ffresco-updates%2F&branch=master">
+                    FRESCO Analytics Toolbench</a>.
+            {% endif %}
+        </p>
+
+        <table>
+            <thead>
+            <tr>
+                {% if data|length > 0 %}
+                    {% for key in data.0.keys %}
+                        <th>{{ key|title }}</th>
+                    {% endfor %}
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in data %}
+                <tr>
+                    {% for key in item.keys %}
+                        <td>{{ item|get_item:key }}</td> <!-- custom filter used here -->
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Download CSV Button -->
+        <form action="{% url 'FRESCO-Data-Repo-Download-Host-CSV' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="search_query" value="{{ user_input }}"> <!-- Pass the search query -->
+            <input type="hidden" name="form_type" value="{{ form_type }}"> <!-- Include form_type -->
+            <button type="submit">Download CSV</button>
+        </form>
+
+    {% endif %}
+
 
     <h2>Database Overview</h2>
     <p>
@@ -97,7 +225,7 @@
     <p><code>gpu_usage</code>: GPU active time average percentage (only for GPU jobs)</p>
     <p><code>nfs</code>: Data transfer rate over NFS mounts</p>
 
-        <div class="line-container">
+    <div class="line-container">
         <div class="line-divider"></div>
     </div>
 
@@ -217,13 +345,14 @@
         </tr>
     </table>
 
-        <div class="line-container">
+    <div class="line-container">
         <div class="line-divider"></div>
     </div>
 
     <h3>Usage</h3>
     <p>
-        These tables are accessible through the Analytics Toolbench. A link to toolbench can be found on the homepage.
+        These tables are accessible through the <a href="https://www.jupyter.fresco-hpc.org/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fj-mckerracher%2Ffresco-updates&urlpath=lab%2Ftree%2Ffresco-updates%2F&branch=master">
+                    FRESCO Analytics Toolbench</a>.
     </p>
 
     </html>
