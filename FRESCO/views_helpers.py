@@ -32,29 +32,12 @@ def get_authorization():
 
 
 def get_api_endpoint(form_data: str, search_type: str) -> str:
-    logger.info("Generating API endpoint for search type: %s and form data: %s", search_type, form_data)
-    base_url = os.getenv("BASE_API_ADDRESS")
-    result = ""
     if search_type == 'host':
-        input_type_url_map = {
-            "job": f"{base_url}/host_data_job_id/{form_data}",
-            "node": f"{base_url}/host_data_node_id/{form_data}",
-            "date": f"{base_url}/host_data_datetime/{form_data}",
-        }
-        result += input_type_url_map.get(identify_input_type_host_search(form_data), "invalid")
+        pass
     elif search_type == 'job':
-        input_type_url_map = {
-            "group": f"{base_url}/job_data_account_id/{form_data}",
-            "job": f"{base_url}/job_data_job_id/{form_data}",
-            "user": f"{base_url}/job_data_user_id/{form_data}",
-            "exit_code": f"{base_url}/job_data_exit_code/{form_data}",
-            "jobname": f"{base_url}/job_data_job_name/{form_data}",
-            "node": f"{base_url}/job_data_host_id/{form_data}"
-        }
-        result += input_type_url_map.get(identify_input_type_job_search(form_data), "invalid")
+        pass
 
-    logger.info("Generated API endpoint: %s", result if result != "invalid" else "Invalid endpoint generated")
-    return result
+    return os.getenv("BASE_API_ADDRESS")
 
 
 def send_simple_search_request(form_data: str, search_type: str):
@@ -75,13 +58,13 @@ def send_simple_search_request(form_data: str, search_type: str):
     logger.info("Sending simple search request for form data: %s, search type: %s", form_data, search_type)
 
     global MAX_RETRIES, INITIAL_DELAY
-    jwt = get_authorization()
-    if not jwt:
-        logger.error("Failed to get API authorization")
-        return "Failed to get API authorization!"
+    # jwt = get_authorization()
+    # if not jwt:
+    #     logger.error("Failed to get API authorization")
+    #     return "Failed to get API authorization!"
 
-    logger.info("Received JWT for authorization")
-    headers = {"Authorization": f"Bearer {jwt}"}
+    # logger.info("Received JWT for authorization")
+    # headers = {"Authorization": f"Bearer {jwt}"}
 
     url = get_api_endpoint(form_data, search_type)
     logger.info("Constructed URL for request: %s", url)
@@ -89,7 +72,7 @@ def send_simple_search_request(form_data: str, search_type: str):
     response = retry_request(
         url,
         get_or_post="get",
-        headers=headers,
+        headers=None,
         max_retries=MAX_RETRIES,
         initial_delay=INITIAL_DELAY
     )
