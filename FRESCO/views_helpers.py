@@ -95,10 +95,9 @@ def send_simple_search_request(form_data: str, search_type: str):
         return "Couldn't connect to the Database!"
 
 
-
 def make_post_request(url, data):
     """
-    Makes a POST request to a specified URL with given headers.
+    Makes a POST request to a specified URL with given data.
 
     :param: url (str): The URL to send the POST request to.
     :param: data (dict): A dictionary of data to include in the request.
@@ -108,7 +107,7 @@ def make_post_request(url, data):
     logger.warning("Making POST request to %s", url)
 
     try:
-        response = requests.post(url, data=data)
+        response = requests.post(url, json=data)
         logger.warning("POST request to %s successful", url)
         return response
     except requests.RequestException as e:
