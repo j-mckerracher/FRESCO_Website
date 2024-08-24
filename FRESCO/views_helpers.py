@@ -158,7 +158,7 @@ def retry_request(url, get_or_post, headers=None, data=None, max_retries=3, init
     """
     delay = initial_delay
     for attempt in range(max_retries):
-        logger.info(f"Attempt {attempt + 1} of {max_retries} to send {get_or_post.upper()} request to {url}")
+        logger.warning(f"Attempt {attempt + 1} of {max_retries} to send {get_or_post.upper()} request to {url}")
 
         if get_or_post.casefold() == "get":
             response = make_get_request(url, headers)
@@ -166,7 +166,7 @@ def retry_request(url, get_or_post, headers=None, data=None, max_retries=3, init
             response = make_post_request(url, data)
 
         if response is not None and response.status_code == 200:
-            logger.info("Request successful")
+            logger.warning("Request successful")
             return response
 
         logger.warning(f"Request failed. Waiting for {delay} seconds before retrying...")
