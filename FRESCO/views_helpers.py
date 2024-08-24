@@ -46,7 +46,7 @@ def send_simple_search_request(form_data: str, search_type: str):
 
     This function first acquires an authorization JWT token. If the token is obtained successfully, it constructs a
     specific URL based on the input type identified in 'form_data' (job, node, or date). It then attempts to send a
-    GET request to the constructed URL using the retry_request function with global retry and delay settings. If the
+    POST request to the constructed URL using the retry_request function with global retry and delay settings. If the
     request is successful and a response is received, the function returns the JSON content of the response.
     Otherwise, it returns a failure message.
 
@@ -69,10 +69,17 @@ def send_simple_search_request(form_data: str, search_type: str):
     url = get_api_endpoint(form_data, search_type)
     logger.info("Constructed URL for request: %s", url)
 
+    # Prepare the data to be sent in the body of the POST request
+    data = {
+        "form_data": form_data,
+        "search_type": search_type
+    }
+
     response = retry_request(
         url,
-        get_or_post="get",
+        get_or_post="post",
         headers=None,
+        data=data,
         max_retries=MAX_RETRIES,
         initial_delay=INITIAL_DELAY
     )
@@ -86,6 +93,7 @@ def send_simple_search_request(form_data: str, search_type: str):
     else:
         logger.error("Couldn't connect to the Database or empty response")
         return "Couldn't connect to the Database!"
+
 
 
 def make_post_request(url, data):
