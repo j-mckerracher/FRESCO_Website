@@ -34,7 +34,7 @@ def news(request):
 
 
 def repository_simple_search(request):
-    logger.info("Processing repository simple search")
+    logger.warning("Processing repository simple search")
     template = f'{template_dir}simple-repository-search.html'
 
     context = {'data': None, 'error_message': None, 'user_input': '', 'truncated': False}
@@ -64,7 +64,7 @@ def repository_simple_search(request):
         user_input = request.POST.get('input_field', '')
         user_input = vh.clean_and_uppercase(user_input)
         context['user_input'] = user_input
-        logger.info("Host data search with user input: %s", user_input)
+        logger.warning("Host data search with user input: %s", user_input)
 
         if not vh.is_valid_host_search(user_input):
             context['error_message'] = "Invalid search query. Please try again."
@@ -78,7 +78,7 @@ def repository_simple_search(request):
         user_input = request.POST.get('input_field', '')
         user_input = vh.clean_and_uppercase(user_input)
         context['user_input'] = user_input
-        logger.info("Job data search with user input: %s", user_input)
+        logger.warning("Job data search with user input: %s", user_input)
 
         if not vh.is_valid_job_search(user_input):
             context['error_message'] = job_search_error
@@ -93,20 +93,20 @@ def repository_simple_search(request):
         context['data'] = result
         if len(result) >= ROW_LIMIT:
             context['truncated'] = True  # Flag to indicate results are truncated
-            logger.info("Search results truncated for: %s", user_input)
+            logger.warning("Search results truncated for: %s", user_input)
 
     return render(request, template, context)
 
 
 def download_search_results_as_csv(request):
-    logger.info("Initiating download of search results as CSV")
+    logger.warning("Initiating download of search results as CSV")
 
     search_type_map = {'host_data': 'host', 'job_data': 'job'}
     search_type = search_type_map.get(request.POST.get('form_type'), "none")
 
     if request.method == 'POST':
         search_query = request.POST.get('search_query')
-        logger.info("Downloading CSV for search type: %s, query: %s", search_type, search_query)
+        logger.warning("Downloading CSV for search type: %s, query: %s", search_type, search_query)
 
         # Perform the search again or retrieve the results
         data = vh.send_simple_search_request(search_query, search_type)
@@ -128,7 +128,7 @@ def download_search_results_as_csv(request):
                 for item in data:
                     writer.writerow(item.values())
 
-                logger.info("CSV file created and data written successfully")
+                logger.warning("CSV file created and data written successfully")
             else:
                 logger.warning("No data available to write to CSV")
         except Exception as e:
