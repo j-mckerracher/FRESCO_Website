@@ -170,6 +170,7 @@ def retry_request(url, get_or_post, headers=None, data=None, max_retries=3, init
             return response
 
         logger.warning(f"Request failed. Waiting for {delay} seconds before retrying...")
+        logger.warning(f"URL: {url}")
         sleep(delay)
         delay *= 2  # Double the delay with each attempt
 
