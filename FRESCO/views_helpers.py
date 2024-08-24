@@ -66,7 +66,7 @@ def send_simple_search_request(form_data: str, search_type: str):
     # logger.info("Received JWT for authorization")
     # headers = {"Authorization": f"Bearer {jwt}"}
 
-    url = get_api_endpoint(form_data, search_type)
+    url = os.getenv("BASE_API_ADDRESS")
     logger.info("Constructed URL for request: %s", url)
 
     # Prepare the data to be sent in the body of the POST request
