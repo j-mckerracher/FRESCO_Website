@@ -92,13 +92,16 @@ def repository_simple_search(request):
 
         result = vh.send_simple_search_request(user_input, job_search_type)
 
-    # Handle the result
+        # Handle the result
     if isinstance(result, str) or result is None:
         context['error_message'] = f"No data found for {user_input}"
         logger.warning("Search did not return data for: %s", user_input)
     else:
         # Ensure the result is a list of dictionaries
         try:
+            logger.info(f"Raw result type: {type(result)}")
+            logger.info(f"Raw result: {result}")
+
             if isinstance(result, list) and len(result) > 0:
                 if isinstance(result[0], str):
                     # Parse each JSON string into a dictionary
@@ -107,13 +110,15 @@ def repository_simple_search(request):
                     # Result is already a list of dictionaries, no need to parse
                     pass
                 else:
-                    raise ValueError("Unexpected data format")
+                    raise ValueError(f"Unexpected data format: {type(result[0])}")
 
             if len(result) == 0:
                 context['error_message'] = f"No data found for {user_input}"
                 logger.warning("Search returned an empty result set for: %s", user_input)
             else:
                 context['data'] = result
+                logger.info(f"Processed data type: {type(context['data'])}")
+                logger.info(f"Processed data: {context['data']}")
                 if len(result) >= ROW_LIMIT:
                     context['truncated'] = True  # Flag to indicate results are truncated
                     logger.warning("Search results truncated for: %s", user_input)
@@ -123,6 +128,9 @@ def repository_simple_search(request):
         except Exception as e:
             context['error_message'] = f"Error processing search results: {str(e)}"
             logger.error("Error processing search results for %s: %s", user_input, str(e))
+
+    logger.info(f"Final context data type: {type(context.get('data'))}")
+    logger.info(f"Final context data: {context.get('data')}")
 
     return render(request, template, context)
 
