@@ -1,4 +1,6 @@
 import csv
+import json
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from . import views_helpers as vh
@@ -83,18 +85,31 @@ def repository_simple_search(request):
         if not vh.is_valid_job_search(user_input):
             context['error_message'] = job_search_error
             logger.warning("Invalid job search query: %s", user_input)
+            return render(request, template, context)
 
         result = vh.send_simple_search_request(user_input, job_search_type)
 
-    if type(result) is str or result is None:
+    # Handle the result
+    if isinstance(result, str) or result is None:
         context['error_message'] = f"No data found for {user_input}"
         logger.warning("Search did not return data for: %s", user_input)
     else:
-        logger.warning(f"result data: {result}")
-        context['data'] = result
-        if len(result) >= ROW_LIMIT:
-            context['truncated'] = True  # Flag to indicate results are truncated
-            logger.warning("Search results truncated for: %s", user_input)
+        # Ensure the result is a list of dictionaries
+        try:
+            if isinstance(result, list) and all(isinstance(item, str) for item in result):
+                result = [json.loads(item) for item in result]  # Parse JSON strings into dictionaries
+
+            if len(result) == 0:
+                context['error_message'] = f"No data found for {user_input}"
+                logger.warning("Search returned an empty result set for: %s", user_input)
+            else:
+                context['data'] = result
+                if len(result) >= ROW_LIMIT:
+                    context['truncated'] = True  # Flag to indicate results are truncated
+                    logger.warning("Search results truncated for: %s", user_input)
+        except Exception as e:
+            context['error_message'] = f"Error processing search results: {str(e)}"
+            logger.error("Error processing search results for %s: %s", user_input, str(e))
 
     return render(request, template, context)
 
