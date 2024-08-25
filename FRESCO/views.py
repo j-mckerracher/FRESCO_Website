@@ -97,7 +97,8 @@ def repository_simple_search(request):
         # Ensure the result is a list of dictionaries
         try:
             if isinstance(result, list) and all(isinstance(item, str) for item in result):
-                result = [json.loads(item) for item in result]  # Parse JSON strings into dictionaries
+                # Parse each JSON string into a dictionary
+                result = [json.loads(item) for item in result]
 
             if len(result) == 0:
                 context['error_message'] = f"No data found for {user_input}"
