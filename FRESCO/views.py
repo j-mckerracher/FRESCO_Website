@@ -35,9 +35,6 @@ def news(request):
     return render(request, template)
 
 
-import json
-
-
 def repository_simple_search(request):
     logger.warning("Processing repository simple search")
     template = f'{template_dir}simple-repository-search.html'
@@ -99,7 +96,14 @@ def repository_simple_search(request):
             try:
                 if isinstance(result, dict) and 'content' in result:
                     json_strings = result['content']
-                    parsed_data = [json.loads(item) for item in json_strings]
+                    parsed_data = []
+                    for json_string in json_strings:
+                        # Split the string by newlines and parse each line separately
+                        for line in json_string.strip().split('\n'):
+                            try:
+                                parsed_data.append(json.loads(line))
+                            except json.JSONDecodeError:
+                                logger.warning(f"Failed to parse JSON line: {line}")
                     context['data'] = parsed_data
                 else:
                     raise ValueError(f"Unexpected data format: {type(result)}")
@@ -114,9 +118,6 @@ def repository_simple_search(request):
                 logger.info(f"Processed data type: {type(context['data'])}")
                 logger.info(f"Processed data: {context['data']}")
 
-            except json.JSONDecodeError as e:
-                context['error_message'] = f"Error decoding search results: {str(e)}"
-                logger.error("Error decoding search results for %s: %s", user_input, str(e))
             except Exception as e:
                 context['error_message'] = f"Error processing search results: {str(e)}"
                 logger.error("Error processing search results for %s: %s", user_input, str(e))
