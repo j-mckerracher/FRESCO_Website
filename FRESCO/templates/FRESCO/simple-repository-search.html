@@ -99,7 +99,8 @@
         <h3>Search Results for "{{ user_input }}"</h3>
         <p class="pb-3">
             {% if truncated %}
-                <b>The displayed results are limited to 300 rows. To access a larger portion of the dataset, please utilize the</b>
+                <b>The displayed results are limited to 300 rows. To access a larger portion of the dataset, please
+                    utilize the</b>
                 <a href="https://d3f5k1ty8at8b8.cloudfront.net/">
                     FRESCO Analytics Toolbench</a>.
             {% endif %}
@@ -118,22 +119,13 @@
             <tbody>
             {% for item in data %}
                 <tr>
-                    {% for key in item.keys %}
-                        <td>{{ item|get_item:key }}</td> <!-- custom filter used here -->
+                    {% for key, value in item.items %}
+                        <td>{{ value }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-
-        <!-- Download CSV Button -->
-        <form action="{% url 'FRESCO-Data-Repo-Download-Host-CSV' %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="search_query" value="{{ user_input }}"> <!-- Pass the search query -->
-            <input type="hidden" name="form_type" value="{{ form_type }}"> <!-- Include form_type -->
-            <button type="submit">Download CSV</button>
-        </form>
-
     {% endif %}
 
 
@@ -351,8 +343,9 @@
 
     <h3>Usage</h3>
     <p>
-        These tables are accessible through the <a href="https://www.jupyter.fresco-hpc.org/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fj-mckerracher%2Ffresco-updates&urlpath=lab%2Ftree%2Ffresco-updates%2F&branch=master">
-                    FRESCO Analytics Toolbench</a>.
+        These tables are accessible through the <a
+            href="https://www.jupyter.fresco-hpc.org/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fj-mckerracher%2Ffresco-updates&urlpath=lab%2Ftree%2Ffresco-updates%2F&branch=master">
+        FRESCO Analytics Toolbench</a>.
     </p>
 
     </html>

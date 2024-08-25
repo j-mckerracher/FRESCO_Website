@@ -92,47 +92,36 @@ def repository_simple_search(request):
 
         result = vh.send_simple_search_request(user_input, job_search_type)
 
-        # Handle the result
-    if isinstance(result, str) or result is None:
-        context['error_message'] = f"No data found for {user_input}"
-        logger.warning("Search did not return data for: %s", user_input)
-    else:
-        # Ensure the result is a list of dictionaries
-        try:
-            logger.info(f"Raw result type: {type(result)}")
-            logger.info(f"Raw result: {result}")
-
-            if isinstance(result, list) and len(result) > 0:
-                if isinstance(result[0], str):
-                    # Parse each JSON string into a dictionary
-                    result = [json.loads(item) for item in result]
-                elif isinstance(result[0], dict):
-                    # Result is already a list of dictionaries, no need to parse
-                    pass
+        if isinstance(result, str) or result is None:
+            context['error_message'] = f"No data found for {user_input}"
+            logger.warning("Search did not return data for: %s", user_input)
+        else:
+            try:
+                if isinstance(result, dict) and 'content' in result:
+                    json_strings = result['content']
+                    parsed_data = [json.loads(item) for item in json_strings]
+                    context['data'] = parsed_data
                 else:
-                    raise ValueError(f"Unexpected data format: {type(result[0])}")
+                    raise ValueError(f"Unexpected data format: {type(result)}")
 
-            if len(result) == 0:
-                context['error_message'] = f"No data found for {user_input}"
-                logger.warning("Search returned an empty result set for: %s", user_input)
-            else:
-                context['data'] = result
+                if len(context['data']) == 0:
+                    context['error_message'] = f"No data found for {user_input}"
+                    logger.warning("Search returned an empty result set for: %s", user_input)
+                elif len(context['data']) >= ROW_LIMIT:
+                    context['truncated'] = True
+                    logger.warning("Search results truncated for: %s", user_input)
+
                 logger.info(f"Processed data type: {type(context['data'])}")
                 logger.info(f"Processed data: {context['data']}")
-                if len(result) >= ROW_LIMIT:
-                    context['truncated'] = True  # Flag to indicate results are truncated
-                    logger.warning("Search results truncated for: %s", user_input)
-        except json.JSONDecodeError as e:
-            context['error_message'] = f"Error decoding search results: {str(e)}"
-            logger.error("Error decoding search results for %s: %s", user_input, str(e))
-        except Exception as e:
-            context['error_message'] = f"Error processing search results: {str(e)}"
-            logger.error("Error processing search results for %s: %s", user_input, str(e))
 
-    logger.info(f"Final context data type: {type(context.get('data'))}")
-    logger.info(f"Final context data: {context.get('data')}")
+            except json.JSONDecodeError as e:
+                context['error_message'] = f"Error decoding search results: {str(e)}"
+                logger.error("Error decoding search results for %s: %s", user_input, str(e))
+            except Exception as e:
+                context['error_message'] = f"Error processing search results: {str(e)}"
+                logger.error("Error processing search results for %s: %s", user_input, str(e))
 
-    return render(request, template, context)
+        return render(request, template, context)
 
 
 def download_search_results_as_csv(request):
