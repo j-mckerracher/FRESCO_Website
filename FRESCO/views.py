@@ -35,6 +35,9 @@ def news(request):
     return render(request, template)
 
 
+import json
+
+
 def repository_simple_search(request):
     logger.warning("Processing repository simple search")
     template = f'{template_dir}simple-repository-search.html'
