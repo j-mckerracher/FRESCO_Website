@@ -99,9 +99,15 @@ def repository_simple_search(request):
     else:
         # Ensure the result is a list of dictionaries
         try:
-            if isinstance(result, list) and all(isinstance(item, str) for item in result):
-                # Parse each JSON string into a dictionary
-                result = [json.loads(item) for item in result]
+            if isinstance(result, list) and len(result) > 0:
+                if isinstance(result[0], str):
+                    # Parse each JSON string into a dictionary
+                    result = [json.loads(item) for item in result]
+                elif isinstance(result[0], dict):
+                    # Result is already a list of dictionaries, no need to parse
+                    pass
+                else:
+                    raise ValueError("Unexpected data format")
 
             if len(result) == 0:
                 context['error_message'] = f"No data found for {user_input}"
@@ -111,6 +117,9 @@ def repository_simple_search(request):
                 if len(result) >= ROW_LIMIT:
                     context['truncated'] = True  # Flag to indicate results are truncated
                     logger.warning("Search results truncated for: %s", user_input)
+        except json.JSONDecodeError as e:
+            context['error_message'] = f"Error decoding search results: {str(e)}"
+            logger.error("Error decoding search results for %s: %s", user_input, str(e))
         except Exception as e:
             context['error_message'] = f"Error processing search results: {str(e)}"
             logger.error("Error processing search results for %s: %s", user_input, str(e))
