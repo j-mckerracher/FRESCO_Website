@@ -90,6 +90,7 @@ def repository_simple_search(request):
         context['error_message'] = f"No data found for {user_input}"
         logger.warning("Search did not return data for: %s", user_input)
     else:
+        logger.warning(f"result data: {result}")
         context['data'] = result
         if len(result) >= ROW_LIMIT:
             context['truncated'] = True  # Flag to indicate results are truncated
