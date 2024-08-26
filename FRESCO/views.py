@@ -61,68 +61,65 @@ def repository_simple_search(request):
     user_input = ""
     result = []
 
-    # Process the host data search
-    if request.method == 'POST' and form_type == 'host_data':
-        user_input = request.POST.get('input_field', '')
-        user_input = vh.clean_and_uppercase(user_input)
-        context['user_input'] = user_input
-        logger.warning("Host data search with user input: %s", user_input)
+    if request.method == 'POST':
+        if form_type == 'host_data':
+            user_input = request.POST.get('input_field', '')
+            user_input = vh.clean_and_uppercase(user_input)
+            context['user_input'] = user_input
+            logger.warning("Host data search with user input: %s", user_input)
 
-        if not vh.is_valid_host_search(user_input):
-            context['error_message'] = "Invalid search query. Please try again."
-            logger.warning("Invalid host search query: %s", user_input)
-            return render(request, template, context)
+            if not vh.is_valid_host_search(user_input):
+                context['error_message'] = "Invalid search query. Please try again."
+                logger.warning("Invalid host search query: %s", user_input)
+            else:
+                result = vh.send_simple_search_request(user_input, host_search_type)
+                context['data'] = result
 
-        result = vh.send_simple_search_request(user_input, host_search_type)
+        elif form_type == 'job_data':
+            user_input = request.POST.get('input_field', '')
+            user_input = vh.clean_and_uppercase(user_input)
+            context['user_input'] = user_input
+            logger.warning("Job data search with user input: %s", user_input)
 
-    elif request.method == 'POST' and form_type == 'job_data':
-        # Process the job data search
-        user_input = request.POST.get('input_field', '')
-        user_input = vh.clean_and_uppercase(user_input)
-        context['user_input'] = user_input
-        logger.warning("Job data search with user input: %s", user_input)
+            if not vh.is_valid_job_search(user_input):
+                context['error_message'] = job_search_error
+                logger.warning("Invalid job search query: %s", user_input)
+            else:
+                result = vh.send_simple_search_request(user_input, job_search_type)
 
-        if not vh.is_valid_job_search(user_input):
-            context['error_message'] = job_search_error
-            logger.warning("Invalid job search query: %s", user_input)
-            return render(request, template, context)
-
-        result = vh.send_simple_search_request(user_input, job_search_type)
-
-        if isinstance(result, str) or result is None:
-            context['error_message'] = f"No data found for {user_input}"
-            logger.warning("Search did not return data for: %s", user_input)
-        else:
-            try:
-                if isinstance(result, dict) and 'content' in result:
-                    json_strings = result['content']
-                    parsed_data = []
-                    for json_string in json_strings:
-                        # Split the string by newlines and parse each line separately
-                        for line in json_string.strip().split('\n'):
-                            try:
-                                parsed_data.append(json.loads(line))
-                            except json.JSONDecodeError:
-                                logger.warning(f"Failed to parse JSON line: {line}")
-                    context['data'] = parsed_data
-                else:
-                    raise ValueError(f"Unexpected data format: {type(result)}")
-
-                if len(context['data']) == 0:
+                if isinstance(result, str) or result is None:
                     context['error_message'] = f"No data found for {user_input}"
-                    logger.warning("Search returned an empty result set for: %s", user_input)
-                elif len(context['data']) >= ROW_LIMIT:
-                    context['truncated'] = True
-                    logger.warning("Search results truncated for: %s", user_input)
+                    logger.warning("Search did not return data for: %s", user_input)
+                else:
+                    try:
+                        if isinstance(result, dict) and 'content' in result:
+                            json_strings = result['content']
+                            parsed_data = []
+                            for json_string in json_strings:
+                                for line in json_string.strip().split('\n'):
+                                    try:
+                                        parsed_data.append(json.loads(line))
+                                    except json.JSONDecodeError:
+                                        logger.warning(f"Failed to parse JSON line: {line}")
+                            context['data'] = parsed_data
+                        else:
+                            raise ValueError(f"Unexpected data format: {type(result)}")
 
-                logger.info(f"Processed data type: {type(context['data'])}")
-                logger.info(f"Processed data: {context['data']}")
+                        if len(context['data']) == 0:
+                            context['error_message'] = f"No data found for {user_input}"
+                            logger.warning("Search returned an empty result set for: %s", user_input)
+                        elif len(context['data']) >= ROW_LIMIT:
+                            context['truncated'] = True
+                            logger.warning("Search results truncated for: %s", user_input)
 
-            except Exception as e:
-                context['error_message'] = f"Error processing search results: {str(e)}"
-                logger.error("Error processing search results for %s: %s", user_input, str(e))
+                        logger.info(f"Processed data type: {type(context['data'])}")
+                        logger.info(f"Processed data: {context['data']}")
 
-        return render(request, template, context)
+                    except Exception as e:
+                        context['error_message'] = f"Error processing search results: {str(e)}"
+                        logger.error("Error processing search results for %s: %s", user_input, str(e))
+
+    return render(request, template, context)
 
 
 def download_search_results_as_csv(request):
