@@ -108,8 +108,8 @@ def repository_simple_search(request):
                             context['truncated'] = True
                             logger.warning("Search results truncated for: %s", user_input)
 
-                        logger.info(f"Processed data type: {type(context['data'])}")
-                        logger.info(f"Processed data: {context['data']}")
+                        logger.warning(f"Processed data type: {type(context['data'])}")
+                        logger.warning(f"Processed data: {context['data']}")
 
                     except Exception as e:
                         context['error_message'] = f"Error processing search results: {str(e)}"
