@@ -94,6 +94,7 @@ def repository_simple_search(request):
                     try:
                         if isinstance(result, dict) and 'content' in result:
                             try:
+
                                 context['data'] = json.loads(result['content'])
                             except json.JSONDecodeError as e:
                                 context['error_message'] = f"Failed to parse JSON data: {str(e)}"
