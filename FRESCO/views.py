@@ -86,11 +86,14 @@ def repository_simple_search(request):
 
         if result:
             if isinstance(result, dict) and 'content' in result:
-                try:
-                    context['data'] = json.loads(result['content'])
-                except json.JSONDecodeError as e:
-                    context['error_message'] = f"Failed to parse JSON data: {str(e)}"
-                    logger.error("Failed to parse JSON data: %s", str(e))
+                if isinstance(result['content'], list):
+                    context['data'] = result['content']  # Directly assign the list to context['data']
+                else:
+                    try:
+                        context['data'] = json.loads(result['content'])
+                    except json.JSONDecodeError as e:
+                        context['error_message'] = f"Failed to parse JSON data: {str(e)}"
+                        logger.error("Failed to parse JSON data: %s", str(e))
             else:
                 context['error_message'] = "Unexpected data format received from search request."
                 logger.error("Unexpected data format: %s", type(result))
