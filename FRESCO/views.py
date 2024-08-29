@@ -62,10 +62,11 @@ def repository_simple_search(request):
     result = []
 
     if request.method == 'POST':
+        user_input = request.POST.get('input_field', '')
+        user_input = vh.clean_and_uppercase(user_input)
+        context['user_input'] = user_input
+
         if form_type == 'host_data':
-            user_input = request.POST.get('input_field', '')
-            user_input = vh.clean_and_uppercase(user_input)
-            context['user_input'] = user_input
             logger.warning("Host data search with user input: %s", user_input)
 
             if not vh.is_valid_host_search(user_input):
@@ -73,12 +74,8 @@ def repository_simple_search(request):
                 logger.warning("Invalid host search query: %s", user_input)
             else:
                 result = vh.send_simple_search_request(user_input, host_search_type)
-                context['data'] = result
 
         elif form_type == 'job_data':
-            user_input = request.POST.get('input_field', '')
-            user_input = vh.clean_and_uppercase(user_input)
-            context['user_input'] = user_input
             logger.warning("Job data search with user input: %s", user_input)
 
             if not vh.is_valid_job_search(user_input):
@@ -87,31 +84,23 @@ def repository_simple_search(request):
             else:
                 result = vh.send_simple_search_request(user_input, job_search_type)
 
-                if isinstance(result, str) or result is None:
-                    context['error_message'] = f"No data found for {user_input}"
-                    logger.warning("Search did not return data for: %s", user_input)
-                else:
-                    try:
-                        if isinstance(result, dict) and 'content' in result:
-                            try:
+        if result:
+            if isinstance(result, dict) and 'content' in result:
+                try:
+                    context['data'] = json.loads(result['content'])
+                except json.JSONDecodeError as e:
+                    context['error_message'] = f"Failed to parse JSON data: {str(e)}"
+                    logger.error("Failed to parse JSON data: %s", str(e))
+            else:
+                context['error_message'] = "Unexpected data format received from search request."
+                logger.error("Unexpected data format: %s", type(result))
+        else:
+            context['error_message'] = f"No data found for {user_input}"
+            logger.warning("Search did not return data for: %s", user_input)
 
-                                context['data'] = json.loads(result['content'])
-                            except json.JSONDecodeError as e:
-                                context['error_message'] = f"Failed to parse JSON data: {str(e)}"
-                                logger.error("Failed to parse JSON data: %s", str(e))
-                        else:
-                            raise ValueError(f"Unexpected data format: {type(result)}")
-
-                        if len(context['data']) == 0:
-                            context['error_message'] = f"No data found for {user_input}"
-                            logger.warning("Search returned an empty result set for: %s", user_input)
-                        elif len(context['data']) >= ROW_LIMIT:
-                            context['truncated'] = True
-                            logger.warning("Search results truncated for: %s", user_input)
-
-                    except Exception as e:
-                        context['error_message'] = f"Error processing search results: {str(e)}"
-                        logger.error("Error processing search results for %s: %s", user_input, str(e))
+        if context['data'] and isinstance(context['data'], list) and len(context['data']) >= ROW_LIMIT:
+            context['truncated'] = True
+            logger.warning("Search results truncated for: %s", user_input)
 
     logger.warning(f"Processed data type: {type(context['data'])}")
     logger.warning(f"Processed data: {context['data']}")
