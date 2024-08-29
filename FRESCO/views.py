@@ -93,15 +93,11 @@ def repository_simple_search(request):
                 else:
                     try:
                         if isinstance(result, dict) and 'content' in result:
-                            json_strings = result['content']
-                            parsed_data = []
-                            for json_string in json_strings:
-                                for line in json_string.strip().split('\n'):
-                                    try:
-                                        parsed_data.append(json.loads(line))
-                                    except json.JSONDecodeError:
-                                        logger.warning(f"Failed to parse JSON line: {line}")
-                            context['data'] = parsed_data
+                            try:
+                                context['data'] = json.loads(result['content'])
+                            except json.JSONDecodeError as e:
+                                context['error_message'] = f"Failed to parse JSON data: {str(e)}"
+                                logger.error("Failed to parse JSON data: %s", str(e))
                         else:
                             raise ValueError(f"Unexpected data format: {type(result)}")
 
